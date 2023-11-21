@@ -68,20 +68,12 @@ public class Event implements Comparable<Event> {
     }
 
 
+//update
     public void removeContactInThisEvent(Contact c) {
-        if (contactsInThisEvent.empty())
-            return;
-        contactsInThisEvent.findfirst();
-        while (!contactsInThisEvent.last()) {
-            if (contactsInThisEvent.retrieve().equals(c)) {
-                contactsInThisEvent.remove();
-                return;
-            }
-            contactsInThisEvent.findnext();
-        }
-        if (contactsInThisEvent.retrieve().equals(c))
-            contactsInThisEvent.remove();
-    }//
+    	if(contactsInThisEvent.findKey(c.getName()))
+    		contactsInThisEvent.removeKey(c.getName());
+    }
+   
 
 }
 
