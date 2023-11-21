@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class Phonebook {
     static Scanner input = new Scanner(System.in);
-    static LinkedList<Contact> allContacts;
+    static BST allContacts;
     static eventList<Event> allEvents;
 
     public static void main(String[] args) {
-        allContacts = new LinkedList<Contact>();
+        allContacts = new BST();
         allEvents = new eventList<>();
         int ch = 0;
         boolean valid  ;
@@ -112,7 +112,7 @@ public class Phonebook {
                     String date = input.nextLine();
                     System.out.println("Enter event location:");
                     String location = input.nextLine();
-                    System.out.println("chose the type of the event : /n 1 for appointment or 2 for an event with multiple contacts ");
+                    System.out.println("chose the type of the event : \n 1 for appointment or 2 for an event with multiple contacts ");
                     int type = input.nextInt();
                     Event e = allEvents.searchByTitle(title);
                     if (e == null){
@@ -170,7 +170,7 @@ public class Phonebook {
                             input.nextLine();
                             if(ch1 == 1 || ch1 ==2)
                                 choice = false ;
-                        }catch(InputMismatchException e) {
+                        }catch(InputMismatchException exception) {
                             System.out.println("Invalid input. Please enter a valid number.");
                             input.nextLine();
 
@@ -317,7 +317,7 @@ public class Phonebook {
             case 3:
                 System.out.println("Enter the contact's Email:");
                 String em = input.nextLine();
-                LinkedList<Contact> emailList = allContacts.searchEmail(em);
+                BST emailList = allContacts.searchEmail(em);
                 if (!emailList.empty()) {
                     System.out.println("Contact found!");
                     System.out.println(emailList);
@@ -329,7 +329,7 @@ public class Phonebook {
             case 4:
                 System.out.println("Enter the contact's Address:");
                 String address = input.nextLine();
-                LinkedList<Contact> addressList = allContacts.searchAddress(address);
+                BST addressList = allContacts.searchAddress(address);
                 if (!addressList.empty()) {
                     System.out.println("Contact found!");
                     System.out.println(addressList);
@@ -340,7 +340,7 @@ public class Phonebook {
             case 5:
                 System.out.println("Enter the contact's Birthday:");
                 String birth = input.nextLine();
-                LinkedList<Contact> birthdayList = allContacts.searchBirthday(birth);
+                BST birthdayList = allContacts.searchBirthday(birth);
                 if (!birthdayList.empty()) {
                     System.out.println("Contact found!");
                     System.out.println(birthdayList);
@@ -371,7 +371,6 @@ public class Phonebook {
             allEvents.searchByTitle(e.getTitle()).getContactsInThisEvent().insertSorted(c);
             System.out.println(c.getName() + " is added to the Event "+e.getTitle()+" successfully ");
         } else
-
             System.out.println("There is a conflict in your schedule.");
 
     }

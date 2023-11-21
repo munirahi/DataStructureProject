@@ -35,12 +35,32 @@ public class BST<T>{
         }
         return null;
     }
+
+
+
+    public BST searchAddress(String a) {
+        BST address = new BST();
+
+
+
+        return address;
+    }
+    public Contact searchPhone(String num) {
+        Contact con =new Contact();
+        current = findFirst();
+        return con ;
+    }
     public String contactsName(){
         String s ="";
 
 
         return s ;
     }
+private BSTNode findFirst(){
+    BSTNode temp = root ;
+
+        return temp;
+}
 
 
 
