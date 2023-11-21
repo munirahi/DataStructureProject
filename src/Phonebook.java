@@ -108,24 +108,49 @@ public class Phonebook {
                 case 4:
                     System.out.println("Enter event title:");
                     String title = input.nextLine();
-                    System.out.println("Enter contact name:");
-                    String contactName = input.nextLine();
-
-                    Contact con = allContacts.searchName(contactName);
-                    if (con != null) {
-                        Event e = allEvents.searchByTitle(title);
-                        if (e == null) {
-                            System.out.println("Enter event date and time (DD/MM/YYYY HH:MM):");
-                            String date = input.nextLine();
-                            System.out.println("Enter event location:");
-                            String location = input.nextLine();
-                            Event e1 = new Event(title, location, date);
-                            scheduleEvent(con, e1);
-
+                    System.out.println("Enter event date and time (DD/MM/YYYY HH:MM):");
+                    String date = input.nextLine();
+                    System.out.println("Enter event location:");
+                    String location = input.nextLine();
+                    System.out.println("chose the type of the event : /n 1 for appointment or 2 for an event with multiple contacts ");
+                    int type = input.nextInt();
+                    Event e = allEvents.searchByTitle(title);
+                    if (e == null){
+                         e = new Event(title, location, date, type);
+                        }else {
+                        System.out.println("there is another event with the same title ");
+                    }
+                    String contactName = "";
+                    Contact con ;
+                    if(type == 1) {
+                        System.out.println("Enter contact name:");
+                        contactName = input.nextLine();
+                        con = allContacts.searchName(contactName);
+                        if (con != null) {
+                          scheduleEvent(con, e);
                         } else
-                            addContactToEvent(con, e);
-                    } else
                         System.out.println("contact not found");
+
+                    } else if (type == 2 ) {
+                        System.out.println("Enter contacts names and separate them by , :");
+                        contactName = input.nextLine();
+                        String[] names = contactName.split(",");
+
+                        for (int i = 0; i < names.length; i++) {
+                            names[i] = names[i].trim();
+                            con = allContacts.searchName(names[i]);
+                            if(i == 0 && con != null){
+                            scheduleEvent(con, e);}else
+                                System.out.println("contact " +names[i] +" is not found therefor event is not scheduled");
+                            return;
+                            if(con != null)
+                                addContactToEvent(con, e);
+                            else
+                                System.out.println("contact " +names[i] +" is not found");
+                        }
+
+                    }
+
 
                     break;
 
@@ -335,7 +360,7 @@ public class Phonebook {
             e.getContactsInThisEvent().insertSorted(c);
             System.out.println("Event scheduled.");
         } else
-            System.out.println("Event caan't be scheduled there is a conflict.");
+            System.out.println("Event can't be scheduled there is a conflict.");
 
     }
 

@@ -9,12 +9,19 @@ public class Event implements Comparable<Event> {
     private String title;
     private String location;
     private Date Date;
-    private LinkedList<Contact> contactsInThisEvent;
+    private enumEvent type ;
+    private BST<Contact> contactsInThisEvent;
 
-    public Event(String title, String location, String dateAndtime) {
+    public Event(String title, String location, String dateAndtime , int t) {
         this.title = title;
         this.location = location;
-        contactsInThisEvent = new LinkedList<Contact>();
+        contactsInThisEvent = new BST<Contact>();
+         if(t == 1)
+             type = enumEvent.APPOINTMENT ;
+         else if (t == 2) {
+             type = enumEvent.EVENT;
+         }
+
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
@@ -44,7 +51,7 @@ public class Event implements Comparable<Event> {
         return Date;
     }
 
-    public LinkedList<Contact> getContactsInThisEvent() {
+    public BST<Contact> getContactsInThisEvent() {
         return contactsInThisEvent;
     }
 
@@ -55,7 +62,7 @@ public class Event implements Comparable<Event> {
 
     @Override
     public String toString() {
-        return "Event title:" + title + "\nlocation:" + location + "\nDate:" + Date + "\nContacts:\n"
+        return type +" title:" + title + "\nlocation:" + location + "\nDate:" + Date + "\nContacts:\n"
                 + contactsInThisEvent.contactsName();
 
     }

@@ -16,11 +16,11 @@ public class BST<T>{
     public Contact retrieve() {
         return current.data;
     }
-    public boolean FindContact(String key){
+  /*  public boolean FindContact(String key){
 
 
         return false ;
-    }
+    }*/
     public Contact searchName(String n) {
 
         BSTNode temp = root ;
@@ -31,9 +31,15 @@ public class BST<T>{
                 temp = temp.right;
             else if (temp.key.compareTo(n) > 0)//
                 temp = temp.left;
-           // temp = temp.;
+
         }
         return null;
+    }
+    public String contactsName(){
+        String s ="";
+
+
+        return s ;
     }
 
 
