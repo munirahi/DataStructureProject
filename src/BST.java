@@ -21,35 +21,54 @@ public class BST<T>{
 
         return false ;
     }*/
-    public Contact searchName(String n) {
+  public Contact searchName(String n){
+     if( searchName(root , n))
+      return current.data  ;
+      else return null ;
+  }
 
-        BSTNode temp = root ;
-        while (temp != null) {
-            if (( temp.data.getName()).equals(n))  // we can also use the key
-                return  temp.data;
-            else if (temp.key.compareTo(n) < 0)//
-                temp = temp.right;
-            else if (temp.key.compareTo(n) > 0)//
-                temp = temp.left;
 
-        }
-        return null;
-    }
+    public boolean searchName(BSTNode temp,String n) {
+        if(temp == null)
+        return false;
+        if (( temp.data.getName()).equals(n)) {
+            current = temp;
+            return  true;}
+        else if (temp.key.compareTo(n) < 0)//
+            return searchName(temp.right ,n );
+        else
+            return searchName(temp.left ,n );
+  }
+
 
 
 
     public BST searchAddress(String a) {
         BST address = new BST();
 
-
-
         return address;
     }
-    public Contact searchPhone(String num) {
-        Contact con =new Contact();
-        current = findFirst();
-        return con ;
+    private BST searchAddress(BSTNode r , String s){
+
     }
+
+
+    public Contact searchPhone(String num) {
+       if(searchPhone(root ,num))
+           return current.data;
+        return null ;
+    }
+    private boolean searchPhone(BSTNode r ,String num){
+    if(r != null ){
+        if(r.data.getPhonenumber().equals(num)){
+            current = r;
+            return true;}
+        searchPhone(r.left , num );
+        searchPhone(r.right , num );}
+    return false ;
+    }
+
+
     public String contactsName(){
         String s ="";
 
@@ -57,10 +76,12 @@ public class BST<T>{
         return s ;
     }
 private BSTNode findFirst(){
-    BSTNode temp = root ;
-
-        return temp;
+    BSTNode   t = root;
+    while (t.left != null)
+        t= t.left ;
+        return t;
 }
+
 
 
 
