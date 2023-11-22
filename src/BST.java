@@ -168,6 +168,59 @@ private BSTNode findFirst(){
         return p.data.toString();
     }
 }
+// new
+public boolean FindKey(String Key) //اقارن الاسم
+{
+BSTNode   a = root;
+while(a!=null)
+{
+    current = a ;
+    if(Key.compareToIgnoreCase(a.key)== 0) // نفسه 
+        return true;
+    else
+        if(Key.compareToIgnoreCase(a.key)< 0) // الاول اقل من الثاني
+            a=a.left;
+    else 
+            if(Key.compareToIgnoreCase(a.key)> 0)
+            { 
+                a= a.right;
+            }
+            
+    
+        
+}
+
+return false ;
+     
+    
+    
+}
+
+public boolean insert(String Key ,  Contact data)  
+{
+    if(root == null)
+    {
+        current = root = new BSTNode(Key,data);
+    return true ;
+    }
+    BSTNode p = current;
+    if(FindKey(Key))
+    {
+        current =p ;
+    return false;
+    }
+    BSTNode a = new BSTNode(Key,data);
+    if(Key.compareToIgnoreCase(current.key)<0)
+        current.left=a;
+    else 
+    {
+        current .right = a;
+    }
+    current = a;
+    return true;
+    
+}
+
 
 
 }
