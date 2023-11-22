@@ -187,17 +187,20 @@ public class BST<T> {
     }
 
     //new
-    public String toString() {
-        return toString(root);
+      public void print()
+    {
+         print(root);
     }
-
-    private String toString(BSTNode p) {
+    private void print(BSTNode p)
+    {
         if (p == null)
-            return "";
-        toString(p.left);
-        toString(p.right);
-        return p.data.toString();
+            return ;
+        print(p.left);
+        System.out.print(p.data);
+        print(p.right);
+       
     }
+    
 
     // new
     public boolean FindKey(String Key) //اقارن الاسم
@@ -215,25 +218,57 @@ public class BST<T> {
         return false;
     }
 
-    public boolean insert(String Key, Contact data) {
-        if (root == null) {
+   public boolean insert(String Key, Contact data) {
+    	if(!unique(data)) {
+            if (root == null) {
             current = root = new BSTNode(Key, data);
             return true;
+                   }
+            BSTNode p=root;
+            BSTNode q=root;
+            
+            while(p!=null){
+                q=p;
+                if(p.key.equals(Key))
+                    return false;
+                else if(Key.compareTo(p.key)>0)
+                    p=p.right;
+                else
+                    p=p.left;
+                   
+            }
+            if(Key.compareTo(q.key)>0){
+            q.right=new BSTNode(Key,data);
+            current=q.right;
+            }
+            else{
+              q.left=new BSTNode(Key,data);
+            current=q.left;   
+            }
+            return true;
         }
-        BSTNode p = current;
-        if (FindKey(Key)) {
-            current = p;
-            return false;
-        }
-        BSTNode a = new BSTNode(Key, data);
-        if (Key.compareToIgnoreCase(current.key) < 0)
-            current.left = a;
-        else {
-            current.right = a;
-        }
-        current = a;
-        return true;
-
+        return false;
+    }
+    //check for phonenum and name
+    public boolean unique(Contact c) {
+    	if(root==null)
+    		return false;
+    	return unique(root,c);
+    }
+    
+    private boolean unique(BSTNode p ,Contact c) {
+    	if(p==null)
+    		return false;
+    	
+    	boolean found=unique(p.left,c);
+    	
+    	if(found)
+    		return true;
+    	if(p.data.getName().equals(c.getName()) || p.data.getPhonenumber().equals(c.getPhonenumber()))
+    		return true;
+    	
+    	return unique(p.right,c);
+    	
     }
 }
 
