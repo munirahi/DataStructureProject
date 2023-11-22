@@ -117,11 +117,17 @@ public class BST<T>{
 
     public BST searchAddress(String a) {
         BST address = new BST();
-
+        searchAddress(root,a, address);
         return address;
     }
-    private BST searchAddress(BSTNode r , String s){
-
+    private BST searchAddress(BSTNode r , String s, BST adList){
+      if(r != null){
+          if(r.data.getAddress().equalsIgnoreCase(s))
+              adList.insert();
+          searchAddress(r.left , s , adList);
+          searchAddress(r.right , s , adList);
+      }
+        return adList ;
     }
 
 
@@ -223,4 +229,4 @@ public boolean insert(String Key ,  Contact data)
 
 
 
-}
+
