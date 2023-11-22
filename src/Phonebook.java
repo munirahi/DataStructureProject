@@ -86,7 +86,7 @@ public class Phonebook {
 
                     Contact c = new Contact(name, phoneNum, email, address, birth, notes);
 
-                    if (allContacts.insertSorted(c))
+                    if (allContacts.insert(c.getName(), c))
                         System.out.println("Contact added successfully!");
                     else
                         System.out.println("already exist");
@@ -140,9 +140,9 @@ public class Phonebook {
                             names[i] = names[i].trim();
                             con = allContacts.searchName(names[i]);
                             if(i == 0 && con != null){
-                            scheduleEvent(con, e);}else
-                                System.out.println("contact " +names[i] +" is not found therefor event is not scheduled");
-                            return;
+                            scheduleEvent(con, e);}else {
+                                System.out.println("contact " + names[i] + " is not found ");
+                             }
                             if(con != null)
                                 addContactToEvent(con, e);
                             else
@@ -357,7 +357,7 @@ public class Phonebook {
         if (!checkConflict(allEvents, e.getDate())) {
             allEvents.addEventSorted(e);
             c.listOfevent.addEventSorted(e);
-            e.getContactsInThisEvent().insertSorted(c);
+            e.getContactsInThisEvent().insert(c.getName() ,c);
             System.out.println("Event scheduled.");
         } else
             System.out.println("Event can't be scheduled there is a conflict.");
@@ -368,7 +368,7 @@ public class Phonebook {
 
         if (!checkConflict(c.listOfevent, e.getDate())) {
             c.listOfevent.addEventSorted(e);
-            allEvents.searchByTitle(e.getTitle()).getContactsInThisEvent().insertSorted(c);
+            allEvents.searchByTitle(e.getTitle()).getContactsInThisEvent().insert(c.getName() ,c);
             System.out.println(c.getName() + " is added to the Event "+e.getTitle()+" successfully ");
         } else
             System.out.println("There is a conflict in your schedule.");
