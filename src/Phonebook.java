@@ -98,11 +98,11 @@ public class Phonebook {
                 case 3:
                     System.out.println("Enter the contact's name:");
                     Contact contactToDelet = allContacts.searchName(input.nextLine());
-                    if (contactToDelet != null)
+                  /*  if (contactToDelet != null)
                         removeContact(contactToDelet);
                     else
                         System.out.println("contact not found in your phonebook ");
-
+*/
                     break;
 
                 case 4:
@@ -202,7 +202,7 @@ public class Phonebook {
                 case 6:
                     System.out.println("Enter the first name:");
                     String name1 = input.next();
-                    printSharedFirstName(name1);
+                   // printSharedFirstName(name1);
                     break;
 
                 case 7:
@@ -221,7 +221,7 @@ public class Phonebook {
 
 
 
-    public static <T> void printSharedFirstName(String name) {
+   /* public static <T> void printSharedFirstName(String name) {
         if (allContacts.empty())
             System.out.println("No contacts.");
         else {
@@ -246,7 +246,7 @@ public class Phonebook {
                 System.out.println(allContacts.retrieve());
             }
         }
-    }
+    }*/
 
 
     public static <T> void printSharedEvent(String evenTitle) {
@@ -365,13 +365,9 @@ public class Phonebook {
     }
 
     public static <T> void addContactToEvent(Contact c, Event e) {
-
-        if (!checkConflict(c.listOfevent, e.getDate())) {
             c.listOfevent.addEventSorted(e);
             allEvents.searchByTitle(e.getTitle()).getContactsInThisEvent().insert(c.getName() ,c);
             System.out.println(c.getName() + " is added to the Event "+e.getTitle()+" successfully ");
-        } else
-            System.out.println("There is a conflict in your schedule.");
 
     }
 
@@ -392,7 +388,7 @@ public class Phonebook {
         return false;
     }
 
-    public static <T> void removeContact(Contact c) {
+   /* public static <T> void removeContact(Contact c) {
 
         if (allContacts.empty())  {
             System.out.println("no contacts in the phonebook");
@@ -428,7 +424,7 @@ public class Phonebook {
         }// end of if
         System.out.println("Contact is deleted.");
 
-    }
+    }*/
 
 }
 

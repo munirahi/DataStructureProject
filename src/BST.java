@@ -98,7 +98,7 @@ public class BST<T> {
         else return null;
     }
 
-    public boolean searchName(BSTNode temp, String n) {
+    private boolean searchName(BSTNode temp, String n) {
         if (temp == null)
             return false;
         if ((temp.data.getName()).equals(n)) {
@@ -129,22 +129,27 @@ public class BST<T> {
 
 
     public Contact searchPhone(String num) {
-        if (searchPhone(root, num))
-            return current.data;
+        BooleanWrapper found = new BooleanWrapper(false);
+        BSTNode contact = searchPhone(root, num , found);
+        if (found.get())
+            return contact.data;
         return null;
     }
 
-    private boolean searchPhone(BSTNode r, String num) {
+    private BSTNode searchPhone(BSTNode r, String num, BooleanWrapper find) {
         if (r != null) {
+            searchPhone(r.left, num,find);
             if (r.data.getPhonenumber().equals(num)) {
                 current = r;
-                return true;
+                find.set(true);
             }
-            searchPhone(r.left, num);
-            searchPhone(r.right, num);
+            searchPhone(r.right, num,find);
         }
-        return false;
+        return current ;
     }
+
+
+
 
     public BST searchEmail(String e){
         BST emails = new BST();
