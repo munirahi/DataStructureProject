@@ -247,7 +247,39 @@ public class Phonebook {
             }
         }
     }
+public static void printSharedFirstName(String name) { //newwwwwwww
+    if (allContacts.empty()) {
+        System.out.println("No contacts.");
+    } else {
+        allContacts.findKey(name);
+        BST sharedFirstNameContacts = new BST(); //ذي بنخزن فيها الكونتاكتس اللي لهم نفس الاسم الاول
+        sharedFirstNameContacts = searchSharedFirstName(allContacts.root, name, sharedFirstNameContacts);
+        if (!sharedFirstNameContacts.empty()) 
+        {
+    System.out.println("Contacts with the first name '" + name + "':");
+    sharedFirstNameContacts.print();
+} else {
+    System.out.println("No contacts found with the first name '" + name + "'.");
+}
+    }
+}
 
+private static BST searchSharedFirstName(BSTNode r, String name, BST sharedContacts) 
+    {
+    if (r != null) {
+        String contactName = r.data.getName();
+        String[] firstName = contactName.split(" ");
+        if (firstName.length > 0) {
+            contactName = firstName[0];
+        }
+        if (contactName.equals(name)) {
+            sharedContacts.insert(r.key, r.data);
+        }
+        searchSharedFirstName(r.left, name, sharedContacts);
+        searchSharedFirstName(r.right, name, sharedContacts);
+    }
+    return sharedContacts;
+}
 
     public static <T> void printSharedEvent(String evenTitle) {
         if (allEvents.empty())
