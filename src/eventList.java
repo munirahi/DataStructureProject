@@ -77,12 +77,15 @@ public class eventList<T> {
             q = temp;
             temp = temp.next;
 
+        }if((((Event) temp.data).getTitle()).compareTo(((Event) e).getTitle()) == 0){
+            temp.next = p;
+            p.next =q;
         }
 
-        assert q != null;
         q.next = p;
         p.next = temp;
         return;
+
     }
 
 
