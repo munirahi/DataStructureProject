@@ -86,7 +86,7 @@ public class Phonebook {
 
                     Contact c = new Contact(name, phoneNum, email, address, birth, notes);
 
-                    if (allContacts.insertSorted(c))
+                    if (allContacts.insert(c.getName(), c))
                         System.out.println("Contact added successfully!");
                     else
                         System.out.println("already exist");
@@ -98,11 +98,11 @@ public class Phonebook {
                 case 3:
                     System.out.println("Enter the contact's name:");
                     Contact contactToDelet = allContacts.searchName(input.nextLine());
-                    if (contactToDelet != null)
+                  /*  if (contactToDelet != null)
                         removeContact(contactToDelet);
                     else
                         System.out.println("contact not found in your phonebook ");
-
+*/
                     break;
 
                 case 4:
@@ -112,42 +112,39 @@ public class Phonebook {
                     String date = input.nextLine();
                     System.out.println("Enter event location:");
                     String location = input.nextLine();
-                    System.out.println("chose the type of the event : \n 1 for appointment or 2 for an event with multiple contacts ");
-                    int type = input.nextInt();
-                    Event e = allEvents.searchByTitle(title);
-                    if (e == null){
-                         e = new Event(title, location, date, type);
-                        }else {
-                        System.out.println("there is another event with the same title ");
-                    }
+                    int type= 0;
+
+                    System.out.println("choose the type of the event : \n 1 for appointment or 2 for an event with multiple contacts ");
+                     type = input.nextInt();
+                    Event event = new Event(title, location, date, type);
+
                     String contactName = "";
                     Contact con ;
                     if(type == 1) {
                         System.out.println("Enter contact name:");
+                        input.nextLine();
                         contactName = input.nextLine();
                         con = allContacts.searchName(contactName);
                         if (con != null) {
-                          scheduleEvent(con, e);
+                            scheduleAppointment(con, event);
                         } else
                         System.out.println("contact not found");
 
                     } else if (type == 2 ) {
-                        System.out.println("Enter contacts names and separate them by , :");
+                        input.nextLine();
+                        System.out.println("Enter contacts names and separate them with , :");
                         contactName = input.nextLine();
                         String[] names = contactName.split(",");
+                        BST ContactsInEvent = new BST<>();
 
                         for (int i = 0; i < names.length; i++) {
                             names[i] = names[i].trim();
                             con = allContacts.searchName(names[i]);
-                            if(i == 0 && con != null){
-                            scheduleEvent(con, e);}else
-                                System.out.println("contact " +names[i] +" is not found therefor event is not scheduled");
-                            return;
-                            if(con != null)
-                                addContactToEvent(con, e);
-                            else
-                                System.out.println("contact " +names[i] +" is not found");
-                        }
+                            if( con != null){
+                                ContactsInEvent.insert(con.getName(),con);}else {
+                                System.out.println("contact " + names[i] + " is not found ");
+                             }
+                        }scheduleEvent(ContactsInEvent,event);
 
                     }
 
@@ -202,7 +199,7 @@ public class Phonebook {
                 case 6:
                     System.out.println("Enter the first name:");
                     String name1 = input.next();
-                    printSharedFirstName(name1);
+                   // printSharedFirstName(name1);
                     break;
 
                 case 7:
@@ -221,7 +218,7 @@ public class Phonebook {
 
 
 
-    public static <T> void printSharedFirstName(String name) {
+   /* public static <T> void printSharedFirstName(String name) {
         if (allContacts.empty())
             System.out.println("No contacts.");
         else {
@@ -246,6 +243,40 @@ public class Phonebook {
                 System.out.println(allContacts.retrieve());
             }
         }
+    }*/
+
+    public static void printSharedFirstName(String name) { //newwwwwwww
+        if (allContacts.empty()) {
+            System.out.println("No contacts.");
+        } else {
+            allContacts.findKey(name);
+            BST sharedFirstNameContacts = new BST(); //ذي بنخزن فيها الكونتاكتس اللي لهم نفس الاسم الاول
+            sharedFirstNameContacts = searchSharedFirstName(allContacts.root, name, sharedFirstNameContacts);
+            if (!sharedFirstNameContacts.empty())
+            {
+                System.out.println("Contacts with the first name '" + name + "':");
+                sharedFirstNameContacts.print();
+            } else {
+                System.out.println("No contacts found with the first name '" + name + "'.");
+            }
+        }
+    }
+
+    private static BST searchSharedFirstName(BSTNode r, String name, BST sharedContacts)
+    {
+        if (r != null) {
+            String contactName = r.data.getName();
+            String[] firstName = contactName.split(" ");
+            if (firstName.length > 0) {
+                contactName = firstName[0];
+            }
+            if (contactName.equals(name)) {
+                sharedContacts.insert(r.key, r.data);
+            }
+            searchSharedFirstName(r.left, name, sharedContacts);
+            searchSharedFirstName(r.right, name, sharedContacts);
+        }
+        return sharedContacts;
     }
 public static void printSharedFirstName(String name) { //newwwwwwww
     if (allContacts.empty()) {
@@ -289,12 +320,9 @@ private static BST searchSharedFirstName(BSTNode r, String name, BST sharedConta
             while (!allEvents.last()) {
                 if (allEvents.retrieve().getTitle().equals(evenTitle)) {
                     System.out.println(allEvents.retrieve());
-                    return;
                 }
-
                 allEvents.findnext();
             }
-
             if (allEvents.retrieve().getTitle().equals(evenTitle)) {
                 System.out.println(allEvents.retrieve());
 
@@ -352,7 +380,7 @@ private static BST searchSharedFirstName(BSTNode r, String name, BST sharedConta
                 BST emailList = allContacts.searchEmail(em);
                 if (!emailList.empty()) {
                     System.out.println("Contact found!");
-                    System.out.println(emailList);
+                    emailList.print();
                 } else
                     System.out.println("Contact not found");
 
@@ -364,7 +392,7 @@ private static BST searchSharedFirstName(BSTNode r, String name, BST sharedConta
                 BST addressList = allContacts.searchAddress(address);
                 if (!addressList.empty()) {
                     System.out.println("Contact found!");
-                    System.out.println(addressList);
+                    addressList.print();
                 } else
                     System.out.println("Contact not found");
                 break;
@@ -375,7 +403,7 @@ private static BST searchSharedFirstName(BSTNode r, String name, BST sharedConta
                 BST birthdayList = allContacts.searchBirthday(birth);
                 if (!birthdayList.empty()) {
                     System.out.println("Contact found!");
-                    System.out.println(birthdayList);
+                    birthdayList.print();
                 } else
                     System.out.println("Contact not found");
                 break;
@@ -384,26 +412,26 @@ private static BST searchSharedFirstName(BSTNode r, String name, BST sharedConta
 
     }
 
-    public static <T> void scheduleEvent(Contact c, Event e) {
+    public static <T> void scheduleAppointment(Contact c, Event e) {
 
         if (!checkConflict(allEvents, e.getDate())) {
             allEvents.addEventSorted(e);
             c.listOfevent.addEventSorted(e);
-            e.getContactsInThisEvent().insertSorted(c);
+            e.getContactsInThisEvent().insert(c.getName() ,c);
             System.out.println("Event scheduled.");
         } else
             System.out.println("Event can't be scheduled there is a conflict.");
 
     }
+    public static <T> void scheduleEvent(BST contacts , Event event){
+        if (!checkConflict(allEvents, event.getDate())) {
+            allEvents.addEventSorted(event);
+            //adds all contacts to the event and adds the event to each contact
+            event.getContactsInThisEvent().insertAll(contacts,event);
+            System.out.println("Event scheduled.");
+        }else
+            System.out.println("Event can't be scheduled there is a conflict.");
 
-    public static <T> void addContactToEvent(Contact c, Event e) {
-
-        if (!checkConflict(c.listOfevent, e.getDate())) {
-            c.listOfevent.addEventSorted(e);
-            allEvents.searchByTitle(e.getTitle()).getContactsInThisEvent().insertSorted(c);
-            System.out.println(c.getName() + " is added to the Event "+e.getTitle()+" successfully ");
-        } else
-            System.out.println("There is a conflict in your schedule.");
 
     }
 
@@ -424,7 +452,7 @@ private static BST searchSharedFirstName(BSTNode r, String name, BST sharedConta
         return false;
     }
 
-    public static <T> void removeContact(Contact c) {
+   /* public static <T> void removeContact(Contact c) {
 
         if (allContacts.empty())  {
             System.out.println("no contacts in the phonebook");
@@ -460,7 +488,7 @@ private static BST searchSharedFirstName(BSTNode r, String name, BST sharedConta
         }// end of if
         System.out.println("Contact is deleted.");
 
-    }
+    }*/
 
 }
 
