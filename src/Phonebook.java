@@ -112,42 +112,39 @@ public class Phonebook {
                     String date = input.nextLine();
                     System.out.println("Enter event location:");
                     String location = input.nextLine();
-                    System.out.println("chose the type of the event : \n 1 for appointment or 2 for an event with multiple contacts ");
-                    int type = input.nextInt();
-                    Event e = allEvents.searchByTitle(title);
-                    if (e == null){
-                         e = new Event(title, location, date, type);
-                        }else {
-                        System.out.println("there is another event with the same title ");
-                    }
+                    int type= 0;
+
+                    System.out.println("choose the type of the event : \n 1 for appointment or 2 for an event with multiple contacts ");
+                     type = input.nextInt();
+                    Event event = new Event(title, location, date, type);
+
                     String contactName = "";
                     Contact con ;
                     if(type == 1) {
                         System.out.println("Enter contact name:");
+                        input.nextLine();
                         contactName = input.nextLine();
                         con = allContacts.searchName(contactName);
                         if (con != null) {
-                          scheduleEvent(con, e);
+                            scheduleAppointment(con, event);
                         } else
                         System.out.println("contact not found");
 
                     } else if (type == 2 ) {
-                        System.out.println("Enter contacts names and separate them by , :");
+                        input.nextLine();
+                        System.out.println("Enter contacts names and separate them with , :");
                         contactName = input.nextLine();
                         String[] names = contactName.split(",");
+                        BST ContactsInEvent = new BST<>();
 
                         for (int i = 0; i < names.length; i++) {
                             names[i] = names[i].trim();
                             con = allContacts.searchName(names[i]);
-                            if(i == 0 && con != null){
-                            scheduleEvent(con, e);}else {
+                            if( con != null){
+                                ContactsInEvent.insert(con.getName(),con);}else {
                                 System.out.println("contact " + names[i] + " is not found ");
                              }
-                            if(con != null)
-                                addContactToEvent(con, e);
-                            else
-                                System.out.println("contact " +names[i] +" is not found");
-                        }
+                        }scheduleEvent(ContactsInEvent,event);
 
                     }
 
@@ -257,12 +254,9 @@ public class Phonebook {
             while (!allEvents.last()) {
                 if (allEvents.retrieve().getTitle().equals(evenTitle)) {
                     System.out.println(allEvents.retrieve());
-                    return;
                 }
-
                 allEvents.findnext();
             }
-
             if (allEvents.retrieve().getTitle().equals(evenTitle)) {
                 System.out.println(allEvents.retrieve());
 
@@ -320,7 +314,7 @@ public class Phonebook {
                 BST emailList = allContacts.searchEmail(em);
                 if (!emailList.empty()) {
                     System.out.println("Contact found!");
-                    System.out.println(emailList);
+                    emailList.print();
                 } else
                     System.out.println("Contact not found");
 
@@ -332,7 +326,7 @@ public class Phonebook {
                 BST addressList = allContacts.searchAddress(address);
                 if (!addressList.empty()) {
                     System.out.println("Contact found!");
-                    System.out.println(addressList);
+                    addressList.print();
                 } else
                     System.out.println("Contact not found");
                 break;
@@ -343,7 +337,7 @@ public class Phonebook {
                 BST birthdayList = allContacts.searchBirthday(birth);
                 if (!birthdayList.empty()) {
                     System.out.println("Contact found!");
-                    System.out.println(birthdayList);
+                    birthdayList.print();
                 } else
                     System.out.println("Contact not found");
                 break;
@@ -352,7 +346,7 @@ public class Phonebook {
 
     }
 
-    public static <T> void scheduleEvent(Contact c, Event e) {
+    public static <T> void scheduleAppointment(Contact c, Event e) {
 
         if (!checkConflict(allEvents, e.getDate())) {
             allEvents.addEventSorted(e);
@@ -363,6 +357,19 @@ public class Phonebook {
             System.out.println("Event can't be scheduled there is a conflict.");
 
     }
+    public static <T> void scheduleEvent(BST contacts , Event event){
+        if (!checkConflict(allEvents, event.getDate())) {
+            allEvents.addEventSorted(event);
+            //adds all contacts to the event and adds the event to each contact
+            event.getContactsInThisEvent().insertAll(contacts,event);
+            System.out.println("Event scheduled.");
+        }else
+            System.out.println("Event can't be scheduled there is a conflict.");
+
+
+    }
+
+
 
     public static <T> void addContactToEvent(Contact c, Event e) {
             c.listOfevent.addEventSorted(e);

@@ -38,8 +38,6 @@ public class BST<T> {
         }
         return false;
     }
-
-
     public boolean removeKey(String k) {
         String k1 = k;
         BSTNode p = root;
@@ -97,7 +95,6 @@ public class BST<T> {
             return current.data;
         else return null;
     }
-
     private boolean searchName(BSTNode temp, String n) {
         if (temp == null)
             return false;
@@ -109,14 +106,11 @@ public class BST<T> {
         else
             return searchName(temp.left, n);
     }
-
-
     public BST searchAddress(String a) {
         BST address = new BST();
         address = searchAddress(root, a, address);
         return address;
     }
-
     private BST searchAddress(BSTNode r, String s, BST adList) {
         if (r != null) {
             if (r.data.getAddress().equalsIgnoreCase(s))
@@ -126,8 +120,6 @@ public class BST<T> {
         }
         return adList;
     }
-
-
     public Contact searchPhone(String num) {
         BooleanWrapper found = new BooleanWrapper(false);
         BSTNode contact = searchPhone(root, num , found);
@@ -147,10 +139,6 @@ public class BST<T> {
         }
         return current ;
     }
-
-
-
-
     public BST searchEmail(String e){
         BST emails = new BST();
         return searchEmail(root , e,emails);
@@ -179,7 +167,7 @@ public class BST<T> {
     }
 
 
-    public String contactsName() {
+    public String contactsNames() {
         String s = "";
         return s;
     }
@@ -205,7 +193,22 @@ public class BST<T> {
         print(p.right);
        
     }
-    
+
+    // A method that adds a hole tree to another one
+    public void insertAll(BST contacts,Event event){
+        if(contacts.root != null){
+            insertAll(contacts.root,event);
+        }
+
+    }
+    private void insertAll(BSTNode root,Event event){
+        if(root != null){
+            insertAll(root.left,event);
+            insert(root.key, root.data);
+            root.data.listOfevent.addEventSorted(event);
+            insertAll(root.right,event);
+        }
+    }
 
     // new
     public boolean FindKey(String Key) //اقارن الاسم

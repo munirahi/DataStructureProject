@@ -63,7 +63,7 @@ public class Event implements Comparable<Event> {
     @Override
     public String toString() {
         return type +" title:" + title + "\nlocation:" + location + "\nDate:" + Date + "\nContacts:\n"
-                + contactsInThisEvent.contactsName();
+                + contactsInThisEvent.contactsNames();
 
     }
 

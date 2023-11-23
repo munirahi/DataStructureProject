@@ -79,6 +79,7 @@ public class eventList<T> {
 
         }
 
+        assert q != null;
         q.next = p;
         p.next = temp;
         return;
