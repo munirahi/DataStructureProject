@@ -98,11 +98,11 @@ public class Phonebook {
                 case 3:
                     System.out.println("Enter the contact's name:");
                     Contact contactToDelet = allContacts.searchName(input.nextLine());
-                  /*  if (contactToDelet != null)
+                    if (contactToDelet != null)
                         removeContact(contactToDelet);
                     else
                         System.out.println("contact not found in your phonebook ");
-*/
+
                     break;
 
                 case 4:
@@ -199,7 +199,7 @@ public class Phonebook {
                 case 6:
                     System.out.println("Enter the first name:");
                     String name1 = input.next();
-                   // printSharedFirstName(name1);
+                    printSharedFirstName(name1);
                     break;
 
                 case 7:
@@ -249,7 +249,7 @@ public class Phonebook {
         if (allContacts.empty()) {
             System.out.println("No contacts.");
         } else {
-            allContacts.findKey(name);
+           // allContacts.findKey(name); //ليش موجودة؟ مو مهمة
             BST sharedFirstNameContacts = new BST(); //ذي بنخزن فيها الكونتاكتس اللي لهم نفس الاسم الاول
             sharedFirstNameContacts = searchSharedFirstName(allContacts.root, name, sharedFirstNameContacts);
             if (!sharedFirstNameContacts.empty())
@@ -420,22 +420,15 @@ public class Phonebook {
         return false;
     }
 
-   /* public static <T> void removeContact(Contact c) {
+    public static <T> void removeContact(Contact c) {
 
         if (allContacts.empty())  {
             System.out.println("no contacts in the phonebook");
             return;
         }
-        allContacts.findfirst();
-        while (!allContacts.last()) {
-            if (allContacts.retrieve().equals(c)) {
-                allContacts.remove();
-                break;
-            }
-            allContacts.findnext();
-        }
-        if (allContacts.retrieve().equals(c))
-            allContacts.remove();
+    
+          allContacts.removeKey(c.getName());
+         
 
         if(!allEvents.empty()) {
 
@@ -456,7 +449,8 @@ public class Phonebook {
         }// end of if
         System.out.println("Contact is deleted.");
 
-    }*/
+    }
+
 
 }
 
