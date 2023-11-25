@@ -1,4 +1,4 @@
-public class BST<T> {
+public class BST {
     BSTNode root, current;
 
     public BST() {

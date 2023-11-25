@@ -134,7 +134,7 @@ public class Phonebook {
                         System.out.println("Enter contacts names and separate them with , :");
                         contactName = input.nextLine();
                         String[] names = contactName.split(",");
-                        BST ContactsInEvent = new BST<>();
+                        BST ContactsInEvent = new BST();
 
                         for (int i = 0; i < names.length; i++) {
                             names[i] = names[i].trim();
@@ -219,7 +219,6 @@ public class Phonebook {
         if (allContacts.empty()) {
             System.out.println("No contacts.");
         } else {
-           // allContacts.findKey(name); //ليش موجودة؟ مو مهمة
             BST sharedFirstNameContacts = new BST(); //ذي بنخزن فيها الكونتاكتس اللي لهم نفس الاسم الاول
             sharedFirstNameContacts = searchSharedFirstName(allContacts.root, name, sharedFirstNameContacts);
             if (!sharedFirstNameContacts.empty())
@@ -250,7 +249,7 @@ public class Phonebook {
     }
 
 
-    public static <T> void printSharedEvent(String evenTitle) {
+    public static void printSharedEvent(String evenTitle) {
         if (allEvents.empty())
             System.out.println("No events.");
         else {
@@ -268,7 +267,7 @@ public class Phonebook {
         }
     }
 
-    public static <T> void search() {
+    public static void search() {
         int ch =0 ;
         boolean notvalid = true ;
         while(notvalid) {
@@ -350,7 +349,7 @@ public class Phonebook {
 
     }
 
-    public static <T> void scheduleAppointment(Contact c, Event e) {
+    public static void scheduleAppointment(Contact c, Event e) {
 
         if (!checkConflict(allEvents, e.getDate())) {
             allEvents.addEventSorted(e);
@@ -361,7 +360,7 @@ public class Phonebook {
             System.out.println("Event can't be scheduled there is a conflict.");
 
     }
-    public static <T> void scheduleEvent(BST contacts , Event event){
+    public static void scheduleEvent(BST contacts , Event event){
         if (!checkConflict(allEvents, event.getDate())) {
             allEvents.addEventSorted(event);
             //adds all contacts to the event and adds the event to each contact
@@ -373,7 +372,7 @@ public class Phonebook {
 
     }
 
-    public static <T> boolean checkConflict(eventList<Event> eList, Date date) {
+    public static boolean checkConflict(eventList<Event> eList, Date date) {
         if (eList.empty())
             return false;
 
@@ -390,7 +389,7 @@ public class Phonebook {
         return false;
     }
 
-    public static <T> void removeContact(Contact c) {
+    public static void removeContact(Contact c) {
 
         if (allContacts.empty())  {
             System.out.println("no contacts in the phonebook");

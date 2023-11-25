@@ -15,7 +15,7 @@ public class Event implements Comparable<Event> {
     public Event(String title, String location, String dateAndtime , int t) {
         this.title = title;
         this.location = location;
-        contactsInThisEvent = new BST<Contact>();
+        contactsInThisEvent = new BST();
          if(t == 1)
              type = enumEvent.APPOINTMENT ;
          else if (t == 2) {
