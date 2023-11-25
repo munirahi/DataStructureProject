@@ -40,7 +40,6 @@ public class Phonebook {
 
                 }}
             switch (ch) {
-
                 case 1:
                     System.out.println("Enter the contact's name:");
                     String name = input.nextLine();
@@ -215,35 +214,6 @@ public class Phonebook {
 
 
     }
-
-
-
-   /* public static <T> void printSharedFirstName(String name) {
-        if (allContacts.empty())
-            System.out.println("No contacts.");
-        else {
-            allContacts.findfirst();
-            while (!allContacts.last()) {
-                String Cname = allContacts.retrieve().getName();
-                String[] fName = Cname.split(" ");
-                if (fName.length > 0)
-                    Cname = fName[0];
-                if (Cname.equals(name)) {
-                    System.out.println("Contact found!");
-                    System.out.println(allContacts.retrieve());
-                }
-                allContacts.findnext();
-            }
-            String Cname = allContacts.retrieve().getName();
-            String[] fName = Cname.split(" ");
-            if (fName.length > 0)
-                Cname = fName[0];
-            if (Cname.equals(name)) {
-                System.out.println("Contact found!");
-                System.out.println(allContacts.retrieve());
-            }
-        }
-    }*/
 
     public static void printSharedFirstName(String name) { //newwwwwwww
         if (allContacts.empty()) {
