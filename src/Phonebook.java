@@ -4,11 +4,11 @@ import java.util.Scanner;
 
 public class Phonebook {
     static Scanner input = new Scanner(System.in);
-    static BST allContacts;
+    static Contact_BST allContacts;
     static eventList<Event> allEvents;
 
     public static void main(String[] args) {
-        allContacts = new BST();
+        allContacts = new Contact_BST();
         allEvents = new eventList<>();
         int ch = 0;
         boolean valid  ;
@@ -134,7 +134,7 @@ public class Phonebook {
                         System.out.println("Enter contacts names and separate them with , :");
                         contactName = input.nextLine();
                         String[] names = contactName.split(",");
-                        BST ContactsInEvent = new BST();
+                        Contact_BST ContactsInEvent = new Contact_BST();
 
                         for (int i = 0; i < names.length; i++) {
                             names[i] = names[i].trim();
@@ -175,12 +175,12 @@ public class Phonebook {
                         case 1:
                             System.out.println("Enter the contact name:");
                             String name1 = input.nextLine();
-                            Event e1 = allEvents.searchByContact(name1);
-                            if (e1 != null) {
-                                System.out.println("Event found!");
-                                System.out.println(e1);
-                            } else
-                                System.out.println("Event not found");
+                            Contact contact = allContacts.searchName(name1) ;
+                            if( contact != null){
+                                contact.printAllEvents();
+                            }else{
+                                System.out.println("contact is not found");
+                            }
                             break;
                         case 2:
                             System.out.println("Enter the event title:");
@@ -219,7 +219,7 @@ public class Phonebook {
         if (allContacts.empty()) {
             System.out.println("No contacts.");
         } else {
-            BST sharedFirstNameContacts = new BST(); //ذي بنخزن فيها الكونتاكتس اللي لهم نفس الاسم الاول
+            Contact_BST sharedFirstNameContacts = new Contact_BST(); //ذي بنخزن فيها الكونتاكتس اللي لهم نفس الاسم الاول
             sharedFirstNameContacts = searchSharedFirstName(allContacts.root, name, sharedFirstNameContacts);
             if (!sharedFirstNameContacts.empty())
             {
@@ -231,11 +231,11 @@ public class Phonebook {
         }
     }
 
-    private static BST searchSharedFirstName(BSTNode r, String name, BST sharedContacts)
+    private static Contact_BST searchSharedFirstName(BSTNode r, String name, Contact_BST sharedContacts)
     {
         if (r != null) {
             String contactName = r.data.getName();
-            String[] firstName = contactName.split(" ");
+            String[] firstName = contactName.split(",");
             if (firstName.length > 0) {
                 contactName = firstName[0];
             }
@@ -244,11 +244,8 @@ public class Phonebook {
             }
             searchSharedFirstName(r.left, name, sharedContacts);
             searchSharedFirstName(r.right, name, sharedContacts);
-        }
-        return sharedContacts;
+        } return sharedContacts;
     }
-
-
     public static void printSharedEvent(String evenTitle) {
         if (allEvents.empty())
             System.out.println("No events.");
@@ -262,7 +259,6 @@ public class Phonebook {
             }
             if (allEvents.retrieve().getTitle().equals(evenTitle)) {
                 System.out.println(allEvents.retrieve());
-
             }
         }
     }
@@ -314,7 +310,7 @@ public class Phonebook {
             case 3:
                 System.out.println("Enter the contact's Email:");
                 String em = input.nextLine();
-                BST emailList = allContacts.searchEmail(em);
+                Contact_BST emailList = allContacts.searchEmail(em);
                 if (!emailList.empty()) {
                     System.out.println("Contact found!");
                     emailList.print();
@@ -326,7 +322,7 @@ public class Phonebook {
             case 4:
                 System.out.println("Enter the contact's Address:");
                 String address = input.nextLine();
-                BST addressList = allContacts.searchAddress(address);
+                Contact_BST addressList = allContacts.searchAddress(address);
                 if (!addressList.empty()) {
                     System.out.println("Contact found!");
                     addressList.print();
@@ -337,7 +333,7 @@ public class Phonebook {
             case 5:
                 System.out.println("Enter the contact's Birthday:");
                 String birth = input.nextLine();
-                BST birthdayList = allContacts.searchBirthday(birth);
+                Contact_BST birthdayList = allContacts.searchBirthday(birth);
                 if (!birthdayList.empty()) {
                     System.out.println("Contact found!");
                     birthdayList.print();
@@ -360,7 +356,7 @@ public class Phonebook {
             System.out.println("Event can't be scheduled there is a conflict.");
 
     }
-    public static void scheduleEvent(BST contacts , Event event){
+    public static void scheduleEvent(Contact_BST contacts , Event event){
         if (!checkConflict(allEvents, event.getDate())) {
             allEvents.addEventSorted(event);
             //adds all contacts to the event and adds the event to each contact
@@ -368,8 +364,6 @@ public class Phonebook {
             System.out.println("Event scheduled.");
         }else
             System.out.println("Event can't be scheduled there is a conflict.");
-
-
     }
 
     public static boolean checkConflict(eventList<Event> eList, Date date) {
@@ -419,8 +413,6 @@ public class Phonebook {
         System.out.println("Contact is deleted.");
 
     }
-
-
 }
 
 

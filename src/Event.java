@@ -10,12 +10,12 @@ public class Event implements Comparable<Event> {
     private String location;
     private Date Date;
     private enumEvent type ;
-    private BST contactsInThisEvent;
+    private Contact_BST contactsInThisEvent;
 
     public Event(String title, String location, String dateAndtime , int t) {
         this.title = title;
         this.location = location;
-        contactsInThisEvent = new BST();
+        contactsInThisEvent = new Contact_BST();
          if(t == 1)
              type = enumEvent.APPOINTMENT ;
          else if (t == 2) {
@@ -51,7 +51,7 @@ public class Event implements Comparable<Event> {
         return Date;
     }
 
-    public BST getContactsInThisEvent() {
+    public Contact_BST getContactsInThisEvent() {
         return contactsInThisEvent;
     }
 

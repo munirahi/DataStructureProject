@@ -1,7 +1,7 @@
-public class BST {
+public class Contact_BST {
     BSTNode root, current;
 
-    public BST() {
+    public Contact_BST() {
         root = current = null;
     }
 
@@ -106,12 +106,12 @@ public class BST {
         else
             return searchName(temp.left, n);
     }
-    public BST searchAddress(String a) {
-        BST address = new BST();
+    public Contact_BST searchAddress(String a) {
+        Contact_BST address = new Contact_BST();
         address = searchAddress(root, a, address);
         return address;
     }
-    private BST searchAddress(BSTNode r, String s, BST adList) {
+    private Contact_BST searchAddress(BSTNode r, String s, Contact_BST adList) {
         if (r != null) {
             if (r.data.getAddress().equalsIgnoreCase(s))
                 adList.insert(r.key,r.data);
@@ -139,11 +139,11 @@ public class BST {
         }
         return current ;
     }
-    public BST searchEmail(String e){
-        BST emails = new BST();
+    public Contact_BST searchEmail(String e){
+        Contact_BST emails = new Contact_BST();
         return searchEmail(root , e,emails);
     }
-    private BST searchEmail(BSTNode r,String e , BST emails)
+    private Contact_BST searchEmail(BSTNode r,String e , Contact_BST emails)
     {
         if (r != null) {
             if (r.data.getEmail().equalsIgnoreCase(e))
@@ -153,11 +153,11 @@ public class BST {
         }
         return emails;
     }
-    public BST searchBirthday(String b){
-        BST BDs = new BST();
+    public Contact_BST searchBirthday(String b){
+        Contact_BST BDs = new Contact_BST();
         return searchBirthday(root , b , BDs);
     }
-    private BST searchBirthday(BSTNode r ,String b , BST BDs){
+    private Contact_BST searchBirthday(BSTNode r ,String b , Contact_BST BDs){
         if (r != null) {
             if (r.data.getBirthday().equalsIgnoreCase(b))
                 BDs.insert(r.key,r.data);
@@ -195,7 +195,7 @@ public class BST {
     }
 
     // A method that adds a hole tree to another one
-    public void insertAll(BST contacts,Event event){
+    public void insertAll(Contact_BST contacts,Event event){
         if(contacts.root != null){
             insertAll(contacts.root,event);
         }

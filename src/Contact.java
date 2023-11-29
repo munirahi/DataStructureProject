@@ -71,7 +71,7 @@ public class Contact implements Comparable<Contact> {
     public String printAllEvents() {
         String s ="";
         if(listOfevent.empty())
-            s= "thare are no events with this contact";
+            s= "there are no events with this contact";
         else {listOfevent.findfirst();
             while (!listOfevent.last()) {
                 s += listOfevent.retrieve().getTitle() + "\n";
