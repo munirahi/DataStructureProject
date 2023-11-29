@@ -168,16 +168,21 @@ public class Contact_BST {
 
 
     public String contactsNames() {
-        String s = "";
+        String s="";
+         s = contactsNames(root, s);
         return s;
     }
 
-    private BSTNode findFirst() {
-        BSTNode t = root;
-        while (t.left != null)
-            t = t.left;
-        return t;
+    private String contactsNames(BSTNode ro, String s){
+        if(ro != null) {
+            s =  contactsNames(ro.left, s);
+            s = s + ro.key + "\n";
+            s = contactsNames(ro.right, s);
+        } return s;
     }
+
+
+
 
     //new
       public void print()

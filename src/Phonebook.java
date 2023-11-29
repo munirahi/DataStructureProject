@@ -137,7 +137,6 @@ public class Phonebook {
                         Contact_BST ContactsInEvent = new Contact_BST();
 
                         for (int i = 0; i < names.length; i++) {
-                            names[i] = names[i].trim();
                             con = allContacts.searchName(names[i]);
                             if( con != null){
                                 ContactsInEvent.insert(con.getName(),con);}else {
