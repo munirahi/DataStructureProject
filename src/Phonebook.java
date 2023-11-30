@@ -105,50 +105,60 @@ public class Phonebook {
                     break;
 
                 case 4:
-                    System.out.println("Enter event title:");
+                     System.out.println("Enter type:");
+                     System.out.println("1. event");
+                     System.out.println("2. appointment");
+                     int type = input.nextInt();
+                     input.nextLine();
+                     Contact con;
+                 if(type==1) {
+                     
+                   System.out.println("Enter event title:");
                     String title = input.nextLine();
+                    System.out.println("Enter contacts names and separate them with , :");
+                    String contactName = input.nextLine();
                     System.out.println("Enter event date and time (DD/MM/YYYY HH:MM):");
                     String date = input.nextLine();
                     System.out.println("Enter event location:");
                     String location = input.nextLine();
-                    int type= 0;
-
-                    System.out.println("choose the type of the event : \n 1 for appointment or 2 for an event with multiple contacts ");
-                     type = input.nextInt();
-                    Event event = new Event(title, location, date, type);
-
-                    String contactName = "";
-                    Contact con ;
-                    if(type == 1) {
-                        System.out.println("Enter contact name:");
-                        input.nextLine();
-                        contactName = input.nextLine();
-                        con = allContacts.searchName(contactName);
-                        if (con != null) {
-                            scheduleAppointment(con, event);
-                        } else
-                        System.out.println("contact not found");
-
-                    } else if (type == 2 ) {
-                        input.nextLine();
-                        System.out.println("Enter contacts names and separate them with , :");
-                        contactName = input.nextLine();
+                    
+                    Event event = new Event(title, location, date,1); 
+                    
                         String[] names = contactName.split(",");
-                        Contact_BST ContactsInEvent = new Contact_BST();
-
-                        for (int i = 0; i < names.length; i++) {
+                       BST ContactsInEvent = new BST();
+                         for (int i = 0; i < names.length; i++) {
                             con = allContacts.searchName(names[i]);
                             if( con != null){
                                 ContactsInEvent.insert(con.getName(),con);}else {
                                 System.out.println("contact " + names[i] + " is not found ");
                              }
-                        }scheduleEvent(ContactsInEvent,event);
+                        }
+                         scheduleEvent(ContactsInEvent,event);    
+                  
+                 }
+                 else if(type==2){
+                     System.out.println("Enter event title:");
+                    String title = input.nextLine();
+                    System.out.println("Enter contact name:");
+                    String contactName = input.nextLine();
+                    System.out.println("Enter event date and time (DD/MM/YYYY HH:MM):");
+                    String date = input.nextLine();
+                    System.out.println("Enter event location:");
+                    String location = input.nextLine();
+                    
+                    Event appointment = new Event(title, location, date, 2);
+                    
+                       con = allContacts.searchName(contactName);
+                        if (con != null) {
+                            scheduleAppointment(con, appointment);
+                        } else
+                        System.out.println("contact not found");
+                    
+                 }
+                 break;
+                    
 
-                    }
-
-
-                    break;
-
+                    
                 case 5:
                     int ch1= 0 ;
                     boolean choice = true ;
