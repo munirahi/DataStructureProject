@@ -111,10 +111,9 @@ public class Phonebook {
                      int type = input.nextInt();
                      input.nextLine();
                      Contact con;
-                 if(type==1) {
-                     
-                   System.out.println("Enter event title:");
+                    System.out.println("Enter event title:");
                     String title = input.nextLine();
+                 if(type==1) {
                     System.out.println("Enter contacts names and separate them with , :");
                     String contactName = input.nextLine();
                     System.out.println("Enter event date and time (DD/MM/YYYY HH:MM):");
@@ -125,7 +124,7 @@ public class Phonebook {
                     Event event = new Event(title, location, date,1); 
                     
                         String[] names = contactName.split(",");
-                       BST ContactsInEvent = new BST();
+                     Contact_BST   ContactsInEvent = new Contact_BST();
                          for (int i = 0; i < names.length; i++) {
                             con = allContacts.searchName(names[i]);
                             if( con != null){
@@ -137,8 +136,6 @@ public class Phonebook {
                   
                  }
                  else if(type==2){
-                     System.out.println("Enter event title:");
-                    String title = input.nextLine();
                     System.out.println("Enter contact name:");
                     String contactName = input.nextLine();
                     System.out.println("Enter event date and time (DD/MM/YYYY HH:MM):");

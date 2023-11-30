@@ -104,20 +104,7 @@ public class eventList<T> {
         return null;
     }
 
-    public Event searchByContact(String c) {
 
-        Node<T> temp = head;
-        while (temp != null) {
-            if ((((Event) temp.data).getContactsInThisEvent()).searchName(c) != null) {
-                current = temp;
-                return (Event) temp.data;
-            }
-            temp = temp.next;
-
-        }
-
-        return null;
-    }
 
     public String toString() {
         Node<T> temp = head;
