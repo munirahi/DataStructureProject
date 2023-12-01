@@ -3,7 +3,7 @@ public class Contact_BST {
 
     public Contact_BST() {
         root = current = null;
-    }
+    }//
 
     public boolean empty() {
 
@@ -278,29 +278,28 @@ public class Contact_BST {
     }
     
 private BSTNode insert(BSTNode current, String key, Contact data) {
-    if (current == null) {
-        return new BSTNode(key, data);
+        if (current == null) {
+            return new BSTNode(key, data);
+        }
+
+        if (key.compareTo(current.key) < 0) {
+            current.left = insert(current.left, key, data);
+        } else if (key.compareTo(current.key) > 0) {
+            current.right = insert(current.right, key, data);
+        }
+
+        return current;
     }
 
-    if (key.compareTo(current.key) < 0) {
-        current.left = insert(current.left, key, data);
-    } else if (key.compareTo(current.key) > 0) {
-        current.right = insert(current.right, key, data);
+    public boolean insert(String key, Contact data) {
+        if (FindKey(key) || searchPhone(data.getPhonenumber()) != null) {
+            System.out.print("Nooooooooo");
+            return false;
+        }
+
+        root = insert(root, key, data);
+        return true;
     }
-
-   
-    return current;
-}
-
-
-public boolean insert(String key, Contact data) {
-    if (FindKey(key) || searchPhone(data.getPhonenumber()) != null) {
-        return false;
-    }
-
-    root = insert(root, key, data);
-    return true;
-}
 
     
  /*
