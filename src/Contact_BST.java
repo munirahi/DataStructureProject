@@ -38,7 +38,7 @@ public class Contact_BST {
         }
         return false;
     }
-    public boolean removeKey(String k) {
+   /* public boolean removeKey(String k) {
         String k1 = k;
         BSTNode p = root;
         BSTNode q = null;
@@ -85,6 +85,52 @@ public class Contact_BST {
             }
         }
         return false;
+    }*/
+       public boolean remove_key(String tkey) {
+        BooleanWrapper removed = new BooleanWrapper(false);
+        BSTNode p;
+        p = remove_Key(tkey, root, removed);
+        current = root = p;
+        return removed.get();
+    }
+
+    private BSTNode remove_Key(String key, BSTNode p, BooleanWrapper flag) {
+        BSTNode q, child = null;
+        if (p == null) {
+            return null;
+        }
+        if (key.compareTo(p.key) < 0) {
+            p.left = remove_Key(key, p.left, flag);
+        } else if (key.compareTo(p.key) > 0) {
+            p.right = remove_Key(key, p.right, flag);
+        } else {
+            flag.set(true);
+            if (p.left != null && p.right != null) {
+
+                q = find_min(p.right);
+                p.key = q.key;
+                p.data = q.data;
+                p.right = remove_Key(q.key, p.right, flag);
+            } else {
+                if (p.right == null) {
+                    child = p.left;
+                } else if (p.left == null) {
+                    child = p.right;
+                }
+                return child;
+            }
+        }
+        return p;
+    }
+
+    private BSTNode find_min(BSTNode p) {
+        if (p == null) {
+            return null;
+        }
+        while (p.left != null) {
+            p = p.left;
+        }
+        return p;
     }
 
       public boolean FindContact(String key){
@@ -230,7 +276,34 @@ public class Contact_BST {
         }
         return false;
     }
+    
+private BSTNode insert(BSTNode current, String key, Contact data) {
+    if (current == null) {
+        return new BSTNode(key, data);
+    }
 
+    if (key.compareTo(current.key) < 0) {
+        current.left = insert(current.left, key, data);
+    } else if (key.compareTo(current.key) > 0) {
+        current.right = insert(current.right, key, data);
+    }
+
+   
+    return current;
+}
+
+
+public boolean insert(String key, Contact data) {
+    if (FindKey(key) || searchPhone(data.getPhonenumber()) != null) {
+        return false;
+    }
+
+    root = insert(root, key, data);
+    return true;
+}
+
+    
+ /*
    public boolean insert(String Key, Contact data) {
     	if(!unique(data)) {
             if (root == null) {
@@ -261,27 +334,23 @@ public class Contact_BST {
             return true;
         }
         return false;
-    }
+    }*/
     //check for phonenum and name
-    public boolean unique(Contact c) {
-    	if(root==null)
-    		return false;
-    	return unique(root,c);
+    public boolean unique(String phoneNumber) {
+        return unique(root, phoneNumber);
     }
-    
-    private boolean unique(BSTNode p ,Contact c) {
-    	if(p==null)
-    		return false;
-    	
-    	boolean found=unique(p.left,c);
-    	
-    	if(found)
-    		return true;
-    	if(p.data.getName().equals(c.getName()) || p.data.getPhonenumber().equals(c.getPhonenumber()))
-    		return true;
-    	
-    	return unique(p.right,c);
-    	
+
+    private boolean unique(BSTNode node, String phoneNumber) {
+        if (node == null) {
+            return false;
+        }
+        if (unique(node.left, phoneNumber)) {
+            return true;
+        }
+        if (node.data.getPhonenumber().equals(phoneNumber)) {
+            return true;
+        }
+        return unique(node.right, phoneNumber);
     }
 }
 
