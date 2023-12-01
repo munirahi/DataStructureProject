@@ -47,16 +47,18 @@ public class Phonebook {
                     String phoneNum = "";
                     boolean flag = true;
                     while (flag) {
-                        System.out.println("Enter the contact's phone number(must be 10 digits):");
+                        System.out.println("Enter the contact's phone number (must be 10 digits):");
                         phoneNum = input.nextLine();
 
-                        if (phoneNum.length() == 10 && phoneNum.substring(0, 2).equals("05") && phoneNum.matches("[0-9]+"))
-
-                            flag = false;
-
-                        else
+                        if (phoneNum.length() == 10 && phoneNum.substring(0, 2).equals("05") && phoneNum.matches("[0-9]+")) {
+                            if (allContacts.unique(phoneNum)) {
+                                System.out.println("This phone number already exists. Please enter a different number.");
+                            } else {
+                                flag = false;
+                            }
+                        } else {
                             System.out.println("Invalid phone number. It must have 10 digits and start with '05'. Please try again.");
-
+                        }
                     }
 
 
