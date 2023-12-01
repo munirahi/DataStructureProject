@@ -38,7 +38,7 @@ public class Contact_BST {
         }
         return false;
     }
-    public boolean removeKey(String k) {
+   /* public boolean removeKey(String k) {
         String k1 = k;
         BSTNode p = root;
         BSTNode q = null;
@@ -85,6 +85,52 @@ public class Contact_BST {
             }
         }
         return false;
+    }*/
+       public boolean remove_key(String tkey) {
+        BooleanWrapper removed = new BooleanWrapper(false);
+        BSTNode p;
+        p = remove_Key(tkey, root, removed);
+        current = root = p;
+        return removed.get();
+    }
+
+    private BSTNode remove_Key(String key, BSTNode p, BooleanWrapper flag) {
+        BSTNode q, child = null;
+        if (p == null) {
+            return null;
+        }
+        if (key.compareTo(p.key) < 0) {
+            p.left = remove_Key(key, p.left, flag);
+        } else if (key.compareTo(p.key) > 0) {
+            p.right = remove_Key(key, p.right, flag);
+        } else {
+            flag.set(true);
+            if (p.left != null && p.right != null) {
+
+                q = find_min(p.right);
+                p.key = q.key;
+                p.data = q.data;
+                p.right = remove_Key(q.key, p.right, flag);
+            } else {
+                if (p.right == null) {
+                    child = p.left;
+                } else if (p.left == null) {
+                    child = p.right;
+                }
+                return child;
+            }
+        }
+        return p;
+    }
+
+    private BSTNode find_min(BSTNode p) {
+        if (p == null) {
+            return null;
+        }
+        while (p.left != null) {
+            p = p.left;
+        }
+        return p;
     }
 
       public boolean FindContact(String key){
