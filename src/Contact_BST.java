@@ -215,10 +215,21 @@ public class Contact_BST {
         }
     }
 
-                      
-    
-    
-
+    // new
+    public boolean FindKey(String Key) //اقارن الاسم
+    { BSTNode a = root;
+        while (a != null) {
+            current = a;
+            if (Key.compareToIgnoreCase(a.key) == 0) // نفسه
+                return true;
+            else if (Key.compareToIgnoreCase(a.key) < 0) // الاول اقل من الثاني
+                a = a.left;
+            else if (Key.compareToIgnoreCase(a.key) > 0) {
+                a = a.right;
+            }
+        }
+        return false;
+    }
 
    public boolean insert(String Key, Contact data) {
     	if(!unique(data)) {
@@ -238,7 +249,7 @@ public class Contact_BST {
                 else
                     p=p.left;
                    
-            }//3
+            }
             if(Key.compareTo(q.key)>0){
             q.right=new BSTNode(Key,data);
             current=q.right;
