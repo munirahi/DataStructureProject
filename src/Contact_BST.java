@@ -257,7 +257,7 @@ public boolean insert(String key, Contact data) {
 }
 
     
-/*
+ /*
    public boolean insert(String Key, Contact data) {
     	if(!unique(data)) {
             if (root == null) {
@@ -288,28 +288,24 @@ public boolean insert(String key, Contact data) {
             return true;
         }
         return false;
-    }
-    //check for phonenum and name
-    public boolean unique(Contact c) {
-    	if(root==null)
-    		return false;
-    	return unique(root,c);
-    }
-    
-    private boolean unique(BSTNode p ,Contact c) {
-    	if(p==null)
-    		return false;
-    	
-    	boolean found=unique(p.left,c);
-    	
-    	if(found)
-    		return true;
-    	if(p.data.getName().equals(c.getName()) || p.data.getPhonenumber().equals(c.getPhonenumber()))
-    		return true;
-    	
-    	return unique(p.right,c);
-    	
     }*/
+    //check for phonenum and name
+    public boolean unique(String phoneNumber) {
+        return unique(root, phoneNumber);
+    }
+
+    private boolean unique(BSTNode node, String phoneNumber) {
+        if (node == null) {
+            return false;
+        }
+        if (unique(node.left, phoneNumber)) {
+            return true;
+        }
+        if (node.data.getPhonenumber().equals(phoneNumber)) {
+            return true;
+        }
+        return unique(node.right, phoneNumber);
+    }
 }
 
 
