@@ -237,9 +237,9 @@ private BSTNode insert(BSTNode current, String key, Contact data) {
     }
 
     if (key.compareTo(current.key) < 0) {
-        current.left = insertRec(current.left, key, data);
+        current.left = insert(current.left, key, data);
     } else if (key.compareTo(current.key) > 0) {
-        current.right = insertRec(current.right, key, data);
+        current.right = insert(current.right, key, data);
     }
 
    
