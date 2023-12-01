@@ -230,7 +230,34 @@ public class Contact_BST {
         }
         return false;
     }
+    
+private BSTNode insert(BSTNode current, String key, Contact data) {
+    if (current == null) {
+        return new BSTNode(key, data);
+    }
 
+    if (key.compareTo(current.key) < 0) {
+        current.left = insert(current.left, key, data);
+    } else if (key.compareTo(current.key) > 0) {
+        current.right = insert(current.right, key, data);
+    }
+
+   
+    return current;
+}
+
+
+public boolean insert(String key, Contact data) {
+    if (FindKey(key) || searchPhone(data.getPhonenumber()) != null) {
+        return false;
+    }
+
+    root = insert(root, key, data);
+    return true;
+}
+
+    
+/*
    public boolean insert(String Key, Contact data) {
     	if(!unique(data)) {
             if (root == null) {
@@ -282,7 +309,7 @@ public class Contact_BST {
     	
     	return unique(p.right,c);
     	
-    }
+    }*/
 }
 
 
