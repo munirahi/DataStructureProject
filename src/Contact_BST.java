@@ -3,7 +3,7 @@ public class Contact_BST {
 
     public Contact_BST() {
         root = current = null;
-    }
+    }//
 
     public boolean empty() {
 
