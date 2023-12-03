@@ -18,7 +18,7 @@ public class Contact_BST {
         return current.data;
     }
 
-    //NEW
+
     public void clear() {
         current = root = null;
     }
@@ -227,23 +227,6 @@ public boolean insert(String key, Contact data) {
 }
 
 
-    //check for phonenum and
-   /* public boolean unique(String phoneNumber) {
-        return unique(root, phoneNumber);
-    }
-
-    private boolean unique(BSTNode node, String phoneNumber) {
-        if (node == null) {
-            return false;
-        }
-        if (unique(node.left, phoneNumber)) {
-            return true;
-        }
-        if (node.data.getPhonenumber().equals(phoneNumber)) {
-            return true;
-        }
-        return unique(node.right, phoneNumber);
-    }*/
 }
 
 
