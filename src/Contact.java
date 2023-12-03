@@ -57,7 +57,7 @@ public class Contact implements Comparable<Contact> {
 
     @Override
     public String toString() {
-        String s =printAllEvents();
+        String s = printAllEvents();
 
         return "\nName:" + name + "\nPhone Number:" + phonenumber + "\nEmail Address:" + email + "\nAddress:" + address
                 + "\nBirthday:" + birthday + "\nNotes:" + notes + "\nevents with this contact:\n"+ s;
@@ -74,9 +74,9 @@ public class Contact implements Comparable<Contact> {
             s= "there are no events with this contact";
         else {listOfevent.findfirst();
             while (!listOfevent.last()) {
-                s += listOfevent.retrieve().getTitle() + "\n";
+                s += listOfevent.retrieve().getTitle()+ listOfevent.retrieve().getDate()+"\n";
                 listOfevent.findnext();
-            }s += listOfevent.retrieve().getTitle() + "\n";
+            }s += listOfevent.retrieve().getTitle() + listOfevent.retrieve().getDate()+ "\n";
         }
 
         return s ;

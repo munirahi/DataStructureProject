@@ -23,69 +23,7 @@ public class Contact_BST {
         current = root = null;
     }
 
-    //NEW
-    public boolean findKey(String k) {
-        BSTNode p = root;
-        while (p != null) {
-            current = p;
-            if (k.compareToIgnoreCase(p.key) == 0) {
-                return true;
-            } else if (k.compareToIgnoreCase(p.key) < 0) {
-                p = p.left;
-            } else {
-                p = p.right;
-            }
-        }
-        return false;
-    }
-   /* public boolean removeKey(String k) {
-        String k1 = k;
-        BSTNode p = root;
-        BSTNode q = null;
-        while (p != null) {
 
-            if (k1.compareTo(p.key) < 0) { //ignorecase ??
-                q = p;
-                p = p.left;
-            } else if (k1.compareTo(p.key) > 0) {
-                q = p;
-                p = p.right;
-            } else {
-                if (p.left != null && p.right != null) { //case3 if there is 2 children
-                    BSTNode min = p.right;
-                    q = p;
-                    while (min.left != null) {
-                        q = min;
-                        min = min.left;
-                    }
-                    p.key = min.key;
-                    p.data = min.data;
-                    k1 = min.key;
-                    p = min;
-                }
-
-                if (p.left != null) {
-                    p = p.left;
-                } else {
-                    p = p.right;
-                }
-
-                if (q == null) {
-                    root = p;
-                } else {
-                    if (k1.compareTo(q.key) < 0) {
-                        q.left = p;
-                    } else {
-                        q.right = p;
-                    }
-                }
-                current = root;
-                return true;
-
-            }
-        }
-        return false;
-    }*/
        public boolean remove_key(String tkey) {
         BooleanWrapper removed = new BooleanWrapper(false);
         BSTNode p;
@@ -180,6 +118,7 @@ public class Contact_BST {
             if (r.data.getPhonenumber().equals(num)) {
                 current = r;
                 find.set(true);
+                return current ;
             }
             searchPhone(r.right, num,find);
         }
@@ -245,12 +184,11 @@ public class Contact_BST {
        
     }
 
-    // A method that adds a hole tree to another one
+    // A method that adds a whole tree to another one
     public void insertAll(Contact_BST contacts,Event event){
         if(contacts.root != null){
             insertAll(contacts.root,event);
         }
-
     }
     private void insertAll(BSTNode root,Event event){
         if(root != null){
@@ -261,21 +199,7 @@ public class Contact_BST {
         }
     }
 
-    // new
-    public boolean FindKey(String Key) //اقارن الاسم
-    { BSTNode a = root;
-        while (a != null) {
-            current = a;
-            if (Key.compareToIgnoreCase(a.key) == 0) // نفسه
-                return true;
-            else if (Key.compareToIgnoreCase(a.key) < 0) // الاول اقل من الثاني
-                a = a.left;
-            else if (Key.compareToIgnoreCase(a.key) > 0) {
-                a = a.right;
-            }
-        }
-        return false;
-    }
+
     
 private BSTNode insert(BSTNode current, String key, Contact data) {
     if (current == null) {
@@ -294,7 +218,7 @@ private BSTNode insert(BSTNode current, String key, Contact data) {
 
 
 public boolean insert(String key, Contact data) {
-    if (FindKey(key) || searchPhone(data.getPhonenumber()) != null) {
+    if (FindContact(key) || searchPhone(data.getPhonenumber()) != null) {
         return false;
     }
 
@@ -302,41 +226,9 @@ public boolean insert(String key, Contact data) {
     return true;
 }
 
-    
- /*
-   public boolean insert(String Key, Contact data) {
-    	if(!unique(data)) {
-            if (root == null) {
-            current = root = new BSTNode(Key, data);
-            return true;
-                   }
-            BSTNode p=root;
-            BSTNode q=root;
-            
-            while(p!=null){
-                q=p;
-                if(p.key.equals(Key))
-                    return false;
-                else if(Key.compareTo(p.key)>0)
-                    p=p.right;
-                else
-                    p=p.left;
-                   
-            }
-            if(Key.compareTo(q.key)>0){
-            q.right=new BSTNode(Key,data);
-            current=q.right;
-            }
-            else{
-              q.left=new BSTNode(Key,data);
-            current=q.left;   
-            }
-            return true;
-        }
-        return false;
-    }*/
-    //check for phonenum and name
-    public boolean unique(String phoneNumber) {
+
+    //check for phonenum and
+   /* public boolean unique(String phoneNumber) {
         return unique(root, phoneNumber);
     }
 
@@ -351,7 +243,7 @@ public boolean insert(String key, Contact data) {
             return true;
         }
         return unique(node.right, phoneNumber);
-    }
+    }*/
 }
 
 

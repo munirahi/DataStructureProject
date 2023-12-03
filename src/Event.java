@@ -16,9 +16,9 @@ public class Event implements Comparable<Event> {
         this.title = title;
         this.location = location;
         contactsInThisEvent = new Contact_BST();
-         if(t == 1)
+         if(t == 2)
              type = enumEvent.APPOINTMENT ;
-         else if (t == 2) {
+         else if (t == 1) {
              type = enumEvent.EVENT;
          }
 
@@ -70,8 +70,8 @@ public class Event implements Comparable<Event> {
 
 //update
     public void removeContactInThisEvent(Contact c) {
-    	if(contactsInThisEvent.findKey(c.getName()))
-    		contactsInThisEvent.removeKey(c.getName());
+    	if(contactsInThisEvent.FindContact(c.getName()))
+    		contactsInThisEvent.remove_key(c.getName());
     }
    
 

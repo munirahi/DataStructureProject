@@ -51,7 +51,7 @@ public class Phonebook {
                         phoneNum = input.nextLine();
 
                         if (phoneNum.length() == 10 && phoneNum.substring(0, 2).equals("05") && phoneNum.matches("[0-9]+")) {
-                            if (allContacts.unique(phoneNum)) {
+                            if (allContacts.searchPhone(phoneNum)!=null) {
                                 System.out.println("This phone number already exists. Please enter a different number.");
                             } else {
                                 flag = false;
@@ -169,9 +169,6 @@ public class Phonebook {
                             ch1 = input.nextInt();
                             input.nextLine();
 
-
-                            ch1 = input.nextInt();
-                            input.nextLine();
                             if(ch1 == 1 || ch1 ==2)
                                 choice = false ;
                         }catch(InputMismatchException exception) {
@@ -185,7 +182,7 @@ public class Phonebook {
                             String name1 = input.nextLine();
                             Contact contact = allContacts.searchName(name1) ;
                             if( contact != null){
-                                contact.printAllEvents();
+                                System.out.println(contact);
                             }else{
                                 System.out.println("contact is not found");
                             }
@@ -223,7 +220,7 @@ public class Phonebook {
 
     }
 
-    public static void printSharedFirstName(String name) { //newwwwwwww
+    public static void printSharedFirstName(String name) {
         if (allContacts.empty()) {
             System.out.println("No contacts.");
         } else {
@@ -243,7 +240,7 @@ public class Phonebook {
     {
         if (r != null) {
             String contactName = r.data.getName();
-            String[] firstName = contactName.split(",");
+            String[] firstName = contactName.split(" ");
             if (firstName.length > 0) {
                 contactName = firstName[0];
             }
@@ -398,7 +395,7 @@ public class Phonebook {
             return;
         }
     
-          allContacts.removeKey(c.getName());
+          allContacts.remove_key(c.getName());
          
 
         if(!allEvents.empty()) {
