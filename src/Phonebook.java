@@ -14,7 +14,7 @@ public class Phonebook {
         boolean valid  ;
         do {
             valid =true ;
-            System.out.println("\nWelcome to the Linked Tree Phonebook!");
+            System.out.println("\nWelcome to the BST Phonebook!");
             System.out.println("Please choose an option:");
             System.out.println("1.Add a contact");
             System.out.println("2.Search for a contact");
@@ -182,7 +182,7 @@ public class Phonebook {
                             String name1 = input.nextLine();
                             Contact contact = allContacts.searchName(name1) ;
                             if( contact != null){
-                                System.out.println(contact);
+                                System.out.println(contact.listOfevent);
                             }else{
                                 System.out.println("contact is not found");
                             }
