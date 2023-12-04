@@ -10,18 +10,6 @@ public class Contact_BST {
         return root == null;
     }
 
-    public boolean full() {
-        return false;
-    }
-
-    public Contact retrieve() {
-        return current.data;
-    }
-
-
-    public void clear() {
-        current = root = null;
-    }
 
 
        public boolean remove_key(String tkey) {

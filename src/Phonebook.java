@@ -290,7 +290,7 @@ public class Phonebook {
 
             }}
         switch (ch) {
-            case 1:
+            case 1 -> {
                 System.out.println("Enter the contact's name:");
                 String name = input.nextLine();
                 Contact c = allContacts.searchName(name);
@@ -299,9 +299,8 @@ public class Phonebook {
                     System.out.println(c);
                 } else
                     System.out.println("Contact not found!");
-                break;
-
-            case 2:
+            }
+            case 2 -> {
                 System.out.println("Enter the contact's phoneNumber:");
                 String phoneNum = input.nextLine();
                 Contact c1 = allContacts.searchPhone(phoneNum);
@@ -310,9 +309,8 @@ public class Phonebook {
                     System.out.println(c1);
                 } else
                     System.out.println("Contact not found!");
-                break;
-
-            case 3:
+            }
+            case 3 -> {
                 System.out.println("Enter the contact's Email:");
                 String em = input.nextLine();
                 Contact_BST emailList = allContacts.searchEmail(em);
@@ -321,10 +319,8 @@ public class Phonebook {
                     emailList.print();
                 } else
                     System.out.println("Contact not found");
-
-                break;
-
-            case 4:
+            }
+            case 4 -> {
                 System.out.println("Enter the contact's Address:");
                 String address = input.nextLine();
                 Contact_BST addressList = allContacts.searchAddress(address);
@@ -333,9 +329,8 @@ public class Phonebook {
                     addressList.print();
                 } else
                     System.out.println("Contact not found");
-                break;
-
-            case 5:
+            }
+            case 5 -> {
                 System.out.println("Enter the contact's Birthday:");
                 String birth = input.nextLine();
                 Contact_BST birthdayList = allContacts.searchBirthday(birth);
@@ -344,8 +339,7 @@ public class Phonebook {
                     birthdayList.print();
                 } else
                     System.out.println("Contact not found");
-                break;
-
+            }
         }
 
     }
@@ -382,10 +376,7 @@ public class Phonebook {
             eList.findnext();
 
         }
-        if (eList.retrieve().getDate().equals(date))
-            return true;
-
-        return false;
+        return eList.retrieve().getDate().equals(date);
     }
 
     public static void removeContact(Contact c) {

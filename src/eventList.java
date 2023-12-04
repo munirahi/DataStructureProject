@@ -16,9 +16,6 @@ public class eventList<T> {
         return current.next == null;
     }
 
-    public boolean full() {
-        return false;
-    }
 
     public void findfirst() {
         current = head;
@@ -32,9 +29,7 @@ public class eventList<T> {
         return current.data;
     }
 
-    public void update(T val) {
-        current.data = val;
-    }
+
 
     public void remove() {
 
@@ -77,11 +72,12 @@ public class eventList<T> {
             q = temp;
             temp = temp.next;
 
-        }if((((Event) temp.data).getTitle()).compareToIgnoreCase(((Event) e).getTitle()) == 0){
+        }if(temp != null){
+        if((((Event) temp.data).getTitle()).compareToIgnoreCase(((Event) e).getTitle()) == 0){
             temp.next = p;
             p.next =q;
             return;
-        }
+        }}
 
         q.next = p;
         p.next = temp;
